@@ -2,7 +2,7 @@
 work day part:
     cargo watch -w {{day}} -x "check -p {{day}}" -s "just test -p {{day}} {{part}}" -s "just lint {{day}}" -s "just bench {{day}} {{part}}" 
 www-build:
-   cargo +nightly leptos build --project www --release
+    cargo +nightly leptos build --project www --release
 lint day:
     cargo clippy -p {{day}}
 test day part:
