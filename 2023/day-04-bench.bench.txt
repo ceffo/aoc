@@ -1,0 +1,3 @@
+day_04_bench  fastest       │ slowest       │ median        │ mean          │ samples │ iters
+╰─ part1      249.7 µs      │ 578.3 µs      │ 274.5 µs      │ 286.6 µs      │ 100     │ 100
+
