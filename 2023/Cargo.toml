@@ -24,6 +24,7 @@ dhat = "0.3.2"
 criterion = { version = "0.5.1", features = ["html_reports"] }
 nom_locate = { version = "4.2.0" }
 nom-supreme = { version = "0.8.0" }
+test-log = "0.2.14"
 
 [profile.flamegraph]
 inherits = "release"
