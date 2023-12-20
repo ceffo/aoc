@@ -11,22 +11,25 @@ test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; fini
 
 running 0 tests
 
-test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
 
 day_01_bench  fastest       │ slowest       │ median        │ mean          │ samples │ iters
-├─ part1      303.6 µs      │ 601.4 µs      │ 324.9 µs      │ 337.2 µs      │ 100     │ 100
-╰─ part2      557 µs        │ 1.048 ms      │ 588.4 µs      │ 627.3 µs      │ 100     │ 100
+├─ part1      272.7 µs      │ 400.9 µs      │ 283.5 µs      │ 286.6 µs      │ 100     │ 100
+╰─ part2      552.6 µs      │ 610.2 µs      │ 577.9 µs      │ 576.1 µs      │ 100     │ 100
 
-day_01::part1/part1     time:   [272.24 µs 274.39 µs 276.79 µs]
-Found 8 outliers among 100 measurements (8.00%)
-  3 (3.00%) low mild
-  1 (1.00%) high mild
-  4 (4.00%) high severe
-
-day_01::part2/part2     time:   [567.98 µs 574.62 µs 582.79 µs]
-Found 10 outliers among 100 measurements (10.00%)
-  2 (2.00%) high mild
+day_01::part1/part1     time:   [268.09 µs 270.28 µs 273.08 µs]
+                        change: [-9.6460% -6.2513% -3.2074%] (p = 0.00 < 0.05)
+                        Performance has improved.
+Found 14 outliers among 100 measurements (14.00%)
+  6 (6.00%) high mild
   8 (8.00%) high severe
+
+day_01::part2/part2     time:   [558.17 µs 561.60 µs 565.70 µs]
+                        change: [-12.456% -10.020% -7.5537%] (p = 0.00 < 0.05)
+                        Performance has improved.
+Found 8 outliers among 100 measurements (8.00%)
+  6 (6.00%) high mild
+  2 (2.00%) high severe
 
 
 running 21 tests
@@ -44,18 +47,22 @@ running 0 tests
 test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
 
 day_02_bench  fastest       │ slowest       │ median        │ mean          │ samples │ iters
-├─ part1      76.49 µs      │ 633.2 µs      │ 219.1 µs      │ 212.6 µs      │ 100     │ 100
-╰─ part2      84.58 µs      │ 284.3 µs      │ 206.9 µs      │ 171.5 µs      │ 100     │ 100
+├─ part1      80.49 µs      │ 247.9 µs      │ 83.99 µs      │ 90.03 µs      │ 100     │ 100
+╰─ part2      89.54 µs      │ 198.7 µs      │ 98.6 µs       │ 102.7 µs      │ 100     │ 100
 
-day_02::part1/part1     time:   [78.807 µs 80.279 µs 82.184 µs]
-Found 10 outliers among 100 measurements (10.00%)
-  3 (3.00%) high mild
-  7 (7.00%) high severe
+day_02::part1/part1     time:   [80.756 µs 81.661 µs 82.650 µs]
+                        change: [-5.3070% -3.8611% -2.4763%] (p = 0.00 < 0.05)
+                        Performance has improved.
+Found 11 outliers among 100 measurements (11.00%)
+  5 (5.00%) high mild
+  6 (6.00%) high severe
 
-day_02::part2/part2     time:   [90.801 µs 91.964 µs 93.778 µs]
-Found 7 outliers among 100 measurements (7.00%)
-  2 (2.00%) high mild
-  5 (5.00%) high severe
+day_02::part2/part2     time:   [92.077 µs 92.874 µs 93.814 µs]
+                        change: [-3.1563% -1.8965% -0.3604%] (p = 0.01 < 0.05)
+                        Change within noise threshold.
+Found 8 outliers among 100 measurements (8.00%)
+  4 (4.00%) high mild
+  4 (4.00%) high severe
 
 
 running 23 tests
@@ -73,16 +80,149 @@ running 0 tests
 test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
 
 day_03_bench  fastest       │ slowest       │ median        │ mean          │ samples │ iters
-├─ part1      1.449 ms      │ 10.35 ms      │ 1.577 ms      │ 1.926 ms      │ 100     │ 100
-╰─ part2      1.584 ms      │ 1.738 ms      │ 1.622 ms      │ 1.622 ms      │ 100     │ 100
+├─ part1      1.453 ms      │ 2.1 ms        │ 1.47 ms       │ 1.52 ms       │ 100     │ 100
+╰─ part2      1.598 ms      │ 1.786 ms      │ 1.633 ms      │ 1.639 ms      │ 100     │ 100
 
-day_03::part1/part1     time:   [1.4771 ms 1.4926 ms 1.5111 ms]
-Found 5 outliers among 100 measurements (5.00%)
-  2 (2.00%) high mild
+day_03::part1/part1     time:   [1.4772 ms 1.4889 ms 1.5032 ms]
+                        change: [-7.5688% -5.0099% -2.4934%] (p = 0.00 < 0.05)
+                        Performance has improved.
+Found 11 outliers among 100 measurements (11.00%)
+  6 (6.00%) high mild
+  5 (5.00%) high severe
+
+day_03::part2/part2     time:   [1.7423 ms 1.8343 ms 1.9388 ms]
+                        change: [-6.7888% -2.0409% +2.3935%] (p = 0.41 > 0.05)
+                        No change in performance detected.
+Found 11 outliers among 100 measurements (11.00%)
+  4 (4.00%) high mild
+  7 (7.00%) high severe
+
+
+running 17 tests
+iiiiiiiiiiiiiiiii
+test result: ok. 0 passed; 0 failed; 17 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+day_04_bench  fastest       │ slowest       │ median        │ mean          │ samples │ iters
+├─ part1      220.2 µs      │ 870 µs        │ 404.4 µs      │ 381.1 µs      │ 100     │ 100
+╰─ part2      217.4 µs      │ 239.1 µs      │ 222 µs        │ 222.9 µs      │ 100     │ 100
+
+day_04::part1/part1     time:   [227.89 µs 230.02 µs 232.23 µs]
+                        change: [-16.693% -12.033% -7.8396%] (p = 0.00 < 0.05)
+                        Performance has improved.
+Found 9 outliers among 100 measurements (9.00%)
+  4 (4.00%) high mild
+  5 (5.00%) high severe
+
+day_04::part2/part2     time:   [223.16 µs 225.14 µs 227.49 µs]
+                        change: [-7.6602% -4.7826% -2.4694%] (p = 0.00 < 0.05)
+                        Performance has improved.
+Found 10 outliers among 100 measurements (10.00%)
+  7 (7.00%) high mild
   3 (3.00%) high severe
 
-day_03::part2/part2     time:   [1.6333 ms 1.6441 ms 1.6565 ms]
-Found 15 outliers among 100 measurements (15.00%)
+
+running 12 tests
+iiiiiiiiiiii
+test result: ok. 0 passed; 0 failed; 12 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+day_05_bench  fastest       │ slowest       │ median        │ mean          │ samples │ iters
+├─ part1      23.79 µs      │ 74.62 µs      │ 23.95 µs      │ 24.69 µs      │ 100     │ 100
+╰─ part2      53.49 µs      │ 65.33 µs      │ 60.83 µs      │ 58.98 µs      │ 100     │ 100
+
+day_05::part1/part1     time:   [24.190 µs 24.670 µs 25.368 µs]
+                        change: [-2.9303% -1.0673% +1.4595%] (p = 0.38 > 0.05)
+                        No change in performance detected.
+Found 18 outliers among 100 measurements (18.00%)
+  3 (3.00%) high mild
+  15 (15.00%) high severe
+
+day_05::part2/part2     time:   [53.076 µs 53.305 µs 53.575 µs]
+                        change: [-7.8477% -5.4205% -3.4896%] (p = 0.00 < 0.05)
+                        Performance has improved.
+Found 18 outliers among 100 measurements (18.00%)
+  3 (3.00%) high mild
+  15 (15.00%) high severe
+
+
+running 5 tests
+iiiii
+test result: ok. 0 passed; 0 failed; 5 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+day_06_bench  fastest       │ slowest       │ median        │ mean          │ samples │ iters
+├─ part1      707 ns        │ 33.33 µs      │ 749 ns        │ 1.072 µs      │ 100     │ 100
+╰─ part2      551 ns        │ 14.28 µs      │ 556.2 ns      │ 767.2 ns      │ 100     │ 800
+
+day_06::part1/part1     time:   [272.11 ns 274.85 ns 278.46 ns]
+                        change: [-14.402% -10.965% -7.9792%] (p = 0.00 < 0.05)
+                        Performance has improved.
+Found 4 outliers among 100 measurements (4.00%)
+  1 (1.00%) high mild
+  3 (3.00%) high severe
+
+day_06::part2/part2     time:   [247.95 ns 251.35 ns 257.64 ns]
+                        change: [-12.394% -8.8563% -5.4406%] (p = 0.00 < 0.05)
+                        Performance has improved.
+Found 18 outliers among 100 measurements (18.00%)
+  2 (2.00%) low mild
   7 (7.00%) high mild
-  8 (8.00%) high severe
+  9 (9.00%) high severe
+
+
+running 16 tests
+iiiiiiiiiiiiiiii
+test result: ok. 0 passed; 0 failed; 16 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+day_07_bench  fastest       │ slowest       │ median        │ mean          │ samples │ iters
+├─ part1      2.607 ms      │ 4.754 ms      │ 2.645 ms      │ 2.766 ms      │ 100     │ 100
+╰─ part2      1.884 ns      │ 4.326 ns      │ 1.945 ns      │ 2.002 ns      │ 100     │ 204800
+
+day_07::part1/part1     time:   [2.6672 ms 2.6909 ms 2.7244 ms]
+Found 17 outliers among 100 measurements (17.00%)
+  2 (2.00%) high mild
+  15 (15.00%) high severe
+
+day_07::part2/part2     time:   [1.6145 ns 1.6286 ns 1.6459 ns]
+Found 18 outliers among 100 measurements (18.00%)
+  5 (5.00%) high mild
+  13 (13.00%) high severe
 
