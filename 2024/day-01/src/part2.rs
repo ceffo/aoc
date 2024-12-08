@@ -1,6 +1,6 @@
 #[tracing::instrument]
 pub fn process(_input: &str) -> miette::Result<String> {
-    todo!("day 01 - part 2");
+    Ok("".to_string())
 }
 
 #[cfg(test)]
@@ -9,7 +9,6 @@ mod tests {
 
     #[test]
     fn test_process() -> miette::Result<()> {
-        todo!("haven't built test yet");
         let input = "";
         assert_eq!("", process(input)?);
         Ok(())

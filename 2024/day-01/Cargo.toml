@@ -6,11 +6,12 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-itertools.workspace = true
-nom.workspace = true
-tracing.workspace = true
-tracing-subscriber.workspace = true
-miette.workspace = true
+itertools = { workspace = true }
+nom = { workspace = true }
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }
+miette = { workspace = true }
+thiserror = { workspace = true }
 
 [dev-dependencies]
 divan.workspace = true
