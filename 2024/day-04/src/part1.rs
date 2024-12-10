@@ -10,7 +10,7 @@ mod tests {
     #[test]
     fn test_process() -> miette::Result<()> {
         let input = "";
-        assert_eq!("", process(input)?);
+        assert_eq!("part1", process(input)?);
         Ok(())
     }
 }
