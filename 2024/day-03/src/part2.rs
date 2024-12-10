@@ -1,55 +1,123 @@
-use std::fmt::{self, Formatter};
-
-use nom::{ 
-    branch::alt, bytes::complete::tag, combinator::map, sequence::{delimited, separated_pair}, IResult
+use miette::miette;
+use nom::{
+    branch::alt,
+    bytes::complete::tag,
+    character::complete::anychar,
+    combinator::{rest, value},
+    multi::{many1, many_till},
+    sequence::{delimited, separated_pair},
+    IResult, Parser,
 };
 
-use crate::custom_error::AocError;
+#[derive(Debug, Clone)]
+pub enum InstructionParser {
+    ManyTill,
+    While,
+}
+
+// implement From<&str> for InstructionParser
+impl From<&str> for InstructionParser {
+    fn from(s: &str) -> Self {
+        match s {
+            "many_till" => InstructionParser::ManyTill,
+            "while" => InstructionParser::While,
+            _ => panic!("unknown parser"),
+        }
+    }
+}
 
 #[tracing::instrument]
 pub fn process(input: &str) -> miette::Result<String> {
-    let (_, muls) = parse(input).map_err(|e| AocError::ParseError(e.to_string()))?;
-    let result = muls.iter().map(|mul| mul.eval()).sum::<u32>();
+    let (_, result) = products(input).map_err(|e| miette!("parse failed {}", e))?;
     Ok(result.to_string())
 }
 
-#[derive(PartialEq, Debug)]
+pub fn process2(input: &str, parser: InstructionParser) -> miette::Result<String> {
+    let instr_parser = match parser {
+        InstructionParser::ManyTill => instructions_manytill,
+        InstructionParser::While => instructions_while,
+    };
+    let (_, result) =
+        products_with(input, instr_parser).map_err(|e| miette!("parse failed {}", e))?;
+    Ok(result.to_string())
+}
+
+#[derive(PartialEq, Debug, Clone)]
 enum Instruction {
-    Mul(Mul),
+    Mul((u32, u32)),
     Do,
     Dont,
 }
 
-#[derive(PartialEq)]
-struct Mul((u32, u32));
-
-impl Mul {
-    fn new(a: u32, b: u32) -> Self {
-        Self((a, b))
-    }
-    fn eval(&self) -> u32 {
-        self.0 .0 * self.0 .1
-    }
+#[derive(PartialEq, Debug, Clone)]
+enum ShouldProcess {
+    Yes,
+    No,
 }
 
-impl fmt::Debug for Mul {
-    fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
-        write!(f, "Mul({}, {})", self.0 .0, self.0 .1)
-    }
+fn products_with(
+    input: &str,
+    instr_parser: impl Fn(&str) -> IResult<&str, Vec<Instruction>>,
+) -> IResult<&str, u32> {
+    let (input, instructions) = instr_parser(input)?;
+    let (_, result) = instructions.iter().fold(
+        (ShouldProcess::Yes, 0),
+        |(should_process, sum), instr| match instr {
+            Instruction::Mul((a, b)) => {
+                if should_process == ShouldProcess::Yes {
+                    (should_process, sum + a * b)
+                } else {
+                    (should_process, sum)
+                }
+            }
+            Instruction::Do => (ShouldProcess::Yes, sum),
+            Instruction::Dont => (ShouldProcess::No, sum),
+        },
+    );
+    Ok((input, result))
 }
 
 #[tracing::instrument]
-fn parse(input: &str) -> IResult<&str, Vec<Mul>> {
+fn products(input: &str) -> IResult<&str, u32> {
+    let (input, instructions) = instructions_while(input)?;
+    let (_, result) = instructions.iter().fold(
+        (ShouldProcess::Yes, 0),
+        |(should_process, sum), instr| match instr {
+            Instruction::Mul((a, b)) => {
+                if should_process == ShouldProcess::Yes {
+                    (should_process, sum + a * b)
+                } else {
+                    (should_process, sum)
+                }
+            }
+            Instruction::Do => (ShouldProcess::Yes, sum),
+            Instruction::Dont => (ShouldProcess::No, sum),
+        },
+    );
+    Ok((input, result))
+}
+
+#[allow(dead_code)]
+fn instructions_manytill(input: &str) -> IResult<&str, Vec<Instruction>> {
+    let (input, instructions) =
+        many1(many_till(anychar, instruction).map(|(_discarded, instr)| instr))(input)?;
+    // consume the rest of the input
+    let (input, _) = rest(input)?;
+    Ok((input, instructions))
+}
+
+#[allow(dead_code)]
+fn instructions_while(input: &str) -> IResult<&str, Vec<Instruction>> {
     let mut remaining = input;
     let mut result = vec![];
     let mut enable = true;
     while !remaining.is_empty() {
-        match parse_instruction(remaining) {
+        match instruction(remaining) {
             Ok((input, instr)) => {
                 match instr {
-                    Instruction::Mul(mul) => {
+                    Instruction::Mul(_) => {
                         if enable {
-                            result.push(mul);
+                            result.push(instr);
                         }
                     }
                     Instruction::Do => {
@@ -69,28 +137,26 @@ fn parse(input: &str) -> IResult<&str, Vec<Mul>> {
     Ok((remaining, result))
 }
 
-fn parse_instruction(input: &str) -> IResult<&str, Instruction> {
-    let (input, instruction) = 
-        alt((
-            map(parse_mul, Instruction::Mul),
-            map(tag("do()"), |_| Instruction::Do),
-            map(tag("don't()"), |_| Instruction::Dont),
-        ))(input)?;
+fn instruction(input: &str) -> IResult<&str, Instruction> {
+    let (input, instruction) = alt((
+        mul,
+        value(Instruction::Do, tag("do()")),
+        value(Instruction::Dont, tag("don't()")),
+    ))(input)?;
     Ok((input, instruction))
 }
 
-fn parse_mul(input: &str) -> IResult<&str, Mul> {
-    let (input, (a,b)) = 
-        delimited(
-            tag("mul("), 
-            separated_pair(
-                nom::character::complete::u32, 
-                tag(","), 
-                nom::character::complete::u32
-            ),
-            tag(")"), 
-        )(input)?;
-    Ok((input, Mul::new(a,b)))
+fn mul(input: &str) -> IResult<&str, Instruction> {
+    let (input, ops) = delimited(
+        tag("mul("),
+        separated_pair(
+            nom::character::complete::u32,
+            tag(","),
+            nom::character::complete::u32,
+        ),
+        tag(")"),
+    )(input)?;
+    Ok((input, Instruction::Mul(ops)))
 }
 
 #[cfg(test)]
@@ -99,20 +165,20 @@ mod tests {
     use rstest::rstest;
 
     #[rstest]
-    #[case("mul(3,4)", Ok(("", vec![Mul::new(3, 4)])))]
-    #[case("mul(23,34)", Ok(("", vec![Mul::new(23, 34)])))]    
-    #[case("fsd8rmul(3,4)f9834hmul(5,6)fsdhjf", Ok(("", vec![Mul::new(3, 4), Mul::new(5, 6)])))]
-    fn test_parse(#[case] input: &str, #[case] expected: IResult<&str, Vec<Mul>>) {
-        let actual = parse(input);
+    #[case("mul(3,4)", Ok(("", 12)))]
+    #[case("mul(23,34)", Ok(("", 782)))]
+    #[case("fsd8rmul(3,4)f9834hmul(5,6)fsdhjf", Ok(("", 42)))]
+    fn test_products(#[case] input: &str, #[case] expected: IResult<&str, u32>) {
+        let actual = products(input);
         assert_eq!(expected, actual);
     }
 
     #[rstest]
-    #[case("mul(3,4)", Ok(("", Mul::new(3, 4))))]
-    #[case("mul(23,34)", Ok(("", Mul::new(23, 34))))]
-    fn test_parse_mul(#[case] input: &str, #[case] expected: IResult<&str, Mul>) {
-        let actual = parse_mul(input);
-        assert_eq!(expected, actual);
+    #[case("mul(3,4)", (3, 4))]
+    #[case("mul(23,34)", (23, 34))]
+    fn test_mul(#[case] input: &str, #[case] expected: (u32, u32)) {
+        let actual = mul(input);
+        assert_eq!(Ok(("", Instruction::Mul(expected))), actual);
     }
 
     #[test]

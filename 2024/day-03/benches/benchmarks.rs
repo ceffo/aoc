@@ -7,16 +7,14 @@ fn main() {
 
 #[divan::bench]
 fn part1() {
-    part1::process(divan::black_box(include_str!(
-        "../input1.txt",
-    )))
-    .unwrap();
+    part1::process(divan::black_box(include_str!("../input1.txt",))).unwrap();
 }
 
-#[divan::bench]
-fn part2() {
-    part2::process(divan::black_box(include_str!(
-        "../input2.txt",
-    )))
+#[divan::bench(args = ["while", "many_till"])]
+fn part2(parser: &str) {
+    part2::process2(
+        divan::black_box(include_str!("../input2.txt",)),
+        parser.into(),
+    )
     .unwrap();
 }

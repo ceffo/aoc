@@ -14,8 +14,8 @@ running 0 tests
 test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
 
 day_01_bench  fastest       │ slowest       │ median        │ mean          │ samples │ iters
-├─ part1      38.83 µs      │ 80.99 µs      │ 39.24 µs      │ 40.91 µs      │ 100     │ 100
-╰─ part2      65.49 µs      │ 75.12 µs      │ 65.7 µs       │ 67.13 µs      │ 100     │ 100
+├─ part1      38.58 µs      │ 58.08 µs      │ 38.87 µs      │ 39.48 µs      │ 100     │ 100
+╰─ part2      65.49 µs      │ 80.66 µs      │ 65.66 µs      │ 66.04 µs      │ 100     │ 100
 
 
 running 23 tests
@@ -33,8 +33,8 @@ running 0 tests
 test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
 
 day_02_bench  fastest       │ slowest       │ median        │ mean          │ samples │ iters
-├─ part1      143.7 µs      │ 178.6 µs      │ 147.4 µs      │ 148.6 µs      │ 100     │ 100
-╰─ part2      339.3 µs      │ 358.7 µs      │ 343.6 µs      │ 344.2 µs      │ 100     │ 100
+├─ part1      143.4 µs      │ 159.6 µs      │ 145.7 µs      │ 146 µs        │ 100     │ 100
+╰─ part2      338.7 µs      │ 457.1 µs      │ 341.8 µs      │ 354.6 µs      │ 100     │ 100
 
 
 running 12 tests
@@ -51,7 +51,9 @@ running 0 tests
 
 test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
 
-day_03_bench  fastest       │ slowest       │ median        │ mean          │ samples │ iters
-├─ part1      25.12 µs      │ 33.83 µs      │ 25.49 µs      │ 25.87 µs      │ 100     │ 100
-╰─ part2      60.83 µs      │ 64.95 µs      │ 60.99 µs      │ 61.13 µs      │ 100     │ 100
+day_03_bench     fastest       │ slowest       │ median        │ mean          │ samples │ iters
+├─ part1         25.87 µs      │ 35.62 µs      │ 26.04 µs      │ 26.25 µs      │ 100     │ 100
+╰─ part2                       │               │               │               │         │
+   ├─ many_till  122.4 µs      │ 141.4 µs      │ 123.3 µs      │ 124.7 µs      │ 100     │ 100
+   ╰─ while      54.66 µs      │ 60.83 µs      │ 56.7 µs       │ 56.83 µs      │ 100     │ 100
 
