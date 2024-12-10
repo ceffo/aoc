@@ -11,8 +11,10 @@ env:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./2024
 
     steps:
     - uses: actions/checkout@v4
